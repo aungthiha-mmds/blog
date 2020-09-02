@@ -7,14 +7,17 @@ use App\Http\Requests\BlogRequest;
 use App\Services\BlogServices;
 use App\Repository\BlogRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\TagRepository;
+use App\Blog;
 
 
 class BlogController extends Controller
 {
-    public function __construct(BlogServices $blogService, BlogRepository $blogRepository, CategoryRepository $categoryRepository){
+    public function __construct(BlogServices $blogService, BlogRepository $blogRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository){
         $this->blogService = $blogService;
         $this->blogRepository = $blogRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->tagRepository = $tagRepository;
     }
     /**
      * Display a listing of the resource.
@@ -24,6 +27,9 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = $this->blogRepository->get();
+        if(\Request()->get('query')){
+            $blogs = $this->blogRepository->search(\Request()->get('query'));
+        }
         return view("home", compact('blogs'));
     }
 
@@ -34,8 +40,9 @@ class BlogController extends Controller
      */
     public function create()
     {
+        $tags = $this->tagRepository->get();
         $categoires = $this->categoryRepository->get();
-        return view('blog.create', compact('categoires'));
+        return view('blog.create', compact('categoires', 'tags'));
     }
 
     /**
@@ -68,11 +75,11 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Blog $blog)
     {
-        $blog = $this->blogRepository->show($id);
+        $tags = $this->tagRepository->get();
         $categoires = $this->categoryRepository->get();
-        return view('blog.edit', compact('blog', 'categoires'));
+        return view('blog.edit', compact('blog', 'categoires', 'tags'));
     }
 
     /**
@@ -95,8 +102,9 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Blog $blog)
     {
-        $this->blogService->destroy($id);
+        $this->blogService->destroy($blog);
+        return back();
     }
 }

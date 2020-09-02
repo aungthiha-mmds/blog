@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Tag;
 use App\Blog;
 
 class BlogServices{
@@ -14,6 +15,8 @@ class BlogServices{
         $blog->content = $request->content;
         $blog->status = $request->status;
         $blog->save();
+        $tags = Tag::find($request->tag);
+        $blog->tags()->attach($tags);
     }
 
     public function update($request, $id){
@@ -24,10 +27,12 @@ class BlogServices{
         $blog->status = $request->status;
         $blog->edit = 1;
         $blog->update();
+        $blog->tags()->detach($blog->tags);
+        $tags = Tag::find($request->tag);
+        $blog->tags()->attach($tags);
     }
 
-    public function destroy($id){
-        $blog = Blog::find($id);
+    public function destroy($blog){
         $blog->delete();
     }
 }

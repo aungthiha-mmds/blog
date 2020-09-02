@@ -19,5 +19,14 @@ class BlogRepository{
         return $blog;
     }
 
+    public function search($input){
+        $blogs = \App\Blog::where('title', 'LIKE', '%' . $input . '%')
+        ->orWhereHas('tags', function($q) use ($input) {
+            return $q->where('name', 'LIKE', '%' . $input . '%');
+        })->orWhereHas('category', function($q) use ($input) {
+            return $q->where('name', 'LIKE', '%' . $input . '%');
+        })->get();
+        return $blogs;
+    }
 
 }

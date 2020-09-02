@@ -42,14 +42,13 @@
         </div>
         <br><br>
         <h5>Tag</h5>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="tag">
-            <label class="form-check-label" for="inlineCheckbox2">Tag</label>
-        </div>
-        <br><br>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="text" id="inlineCheckbox2" name="tag_">
-            <label class="form-check-label" for="inlineCheckbox2">Add tag</label>
+        <div class="row" style="margin:0">
+            @foreach ($tags as $tag)
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" value="{{ $tag->id }}" type="checkbox" id="inlineCheckbox2" name="tag[]">
+                    <label class="form-check-label" for="inlineCheckbox2">{{ $tag->name }}</label>
+                </div>
+            @endforeach
         </div>
         <br><br>
         <button type="submit" class="btn btn-primary">Submit</button>

@@ -52,7 +52,7 @@
                         @else
                             <div class="row">
                                 <div class="col-md-7">
-                                    <form action="{{ route('serach') }}">
+                                    <form action="{{ route('blog.index') }}">
                                         <input class="form-control" name="query" type="text" placeholder="Search" aria-label="Search">
                                     </form>
                                 </div>

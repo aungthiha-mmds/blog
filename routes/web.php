@@ -22,8 +22,3 @@ Auth::routes();
 Route::get('/home', 'BlogController@index')->name('home');
 
 Route::resource('blog', 'BlogController');
-
-Route::get('serach', function(){
-    $query = \App\Blog::whereLike(['title', 'content'], \Request()->get('query'))->get();
-    dd($query);
-})->name('serach');
