@@ -52,8 +52,8 @@
                         @else
                             <div class="row">
                                 <div class="col-md-7">
-                                    <form action="">
-                                        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                                    <form action="{{ route('serach') }}">
+                                        <input class="form-control" name="query" type="text" placeholder="Search" aria-label="Search">
                                     </form>
                                 </div>
                                 <div class="col-md-5">
