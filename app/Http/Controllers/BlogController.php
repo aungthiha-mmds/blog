@@ -66,7 +66,7 @@ class BlogController extends Controller
      */
     public function show($query)
     {
-        dd($query);
+        //
     }
 
     /**
