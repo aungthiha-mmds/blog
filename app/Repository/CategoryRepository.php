@@ -5,9 +5,8 @@ use App\Category;
 
 class CategoryRepository{
 
-    public function get(){
-        $categories = Category::get()->all();
-        return $categories;
+    public static function get(){
+        return Category::get()->all();
     }
 
 }

@@ -13,11 +13,8 @@ use App\Blog;
 
 class BlogController extends Controller
 {
-    public function __construct(BlogServices $blogService, BlogRepository $blogRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository){
-        $this->blogService = $blogService;
-        $this->blogRepository = $blogRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->tagRepository = $tagRepository;
+    public function __construct(){
+        //
     }
     /**
      * Display a listing of the resource.
@@ -26,9 +23,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = $this->blogRepository->get();
+        $blogs = BlogRepository::get();
         if(\Request()->get('query')){
-            $blogs = $this->blogRepository->search(\Request()->get('query'));
+            $blogs = BlogRepository::search(\Request()->get('query'));
         }
         return view("home", compact('blogs'));
     }
@@ -40,8 +37,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $tags = $this->tagRepository->get();
-        $categoires = $this->categoryRepository->get();
+        $tags = TagRepository::get();
+        $categoires = CategoryRepository::get();
         return view('blog.create', compact('categoires', 'tags'));
     }
 
@@ -53,8 +50,8 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request)
     {
-        $validated = $request->validated();
-        $this->blogService->store($request);
+        $request->validated();
+        BlogServices::store($request);
         return back()->with('success', 'Create Blog Successfully');
     }
 
@@ -77,8 +74,8 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        $tags = $this->tagRepository->get();
-        $categoires = $this->categoryRepository->get();
+        $tags = TagRepository::get();
+        $categoires = CategoryRepository::get();
         return view('blog.edit', compact('blog', 'categoires', 'tags'));
     }
 
@@ -91,8 +88,8 @@ class BlogController extends Controller
      */
     public function update(BlogRequest $request, $id)
     {
-        $validated = $request->validated();
-        $this->blogService->update($request, $id);
+        $request->validated();
+        BlogServices::update($request, $id);
         return back()->with('success', 'Update Blog Successfully');
     }
 
@@ -104,7 +101,7 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        $this->blogService->destroy($blog);
+        BlogServices::destroy($blog);
         return back();
     }
 }

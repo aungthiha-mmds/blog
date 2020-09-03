@@ -5,7 +5,7 @@ use App\Blog;
 
 class BlogRepository{
 
-    public function get(){
+    public static function get(){
         if(\Auth::user()){
             $blogs = Blog::get()->all();
         }else{
@@ -14,12 +14,11 @@ class BlogRepository{
         return $blogs;
     }
 
-    public function show($id){
-        $blog = Blog::find($id);
-        return $blog;
+    public static function show($id){
+        return Blog::find($id);
     }
 
-    public function search($input){
+    public static function search($input){
         $blogs = \App\Blog::where('title', 'LIKE', '%' . $input . '%')
         ->orWhereHas('tags', function($q) use ($input) {
             return $q->where('name', 'LIKE', '%' . $input . '%');

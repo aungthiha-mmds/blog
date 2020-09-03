@@ -1,18 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    @if($errors->any())
-        <div class="alert alert-danger" role="alert">
-        @foreach ($errors->all() as $error)
-         {{$error}} <br>
-        @endforeach
-        </div>
-    @endif
-    @if(Session::has('success'))
-        <div class="alert alert-success" role="alert">
-            {{Session::get('success')}}
-        </div>
-    @endif
+    <x-error />
+    <x-alert />
     <form method="POST" action="{{ route('blog.store') }}">
         @csrf
         <div class="form-group">
@@ -39,15 +29,7 @@
             <label class="form-check-label" for="inlineCheckbox2">Unpublish</label>
         </div>
         <br><br>
-        <h5>Tag</h5>
-        <div class="row" style="margin:0">
-            @foreach ($tags as $tag)
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" value="{{ $tag->id }}" type="checkbox" id="inlineCheckbox2" name="tag[]">
-                    <label class="form-check-label" for="inlineCheckbox2">{{ $tag->name }}</label>
-                </div>
-            @endforeach
-        </div>
+        <x-tag :tags="$tags" />
         <br><br>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

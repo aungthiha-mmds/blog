@@ -7,7 +7,7 @@ use App\Blog;
 
 class BlogServices{
 
-    public function store($request){
+    public static function store($request){
         $blog = new Blog;
         $blog->user_id = \Auth::user()->id;
         $blog->title = $request->title;
@@ -19,7 +19,7 @@ class BlogServices{
         $blog->tags()->attach($tags);
     }
 
-    public function update($request, $id){
+    public static function update($request, $id){
         $blog = Blog::find($id);
         $blog->title = $request->title;
         $blog->content = $request->content;
@@ -32,7 +32,7 @@ class BlogServices{
         $blog->tags()->attach($tags);
     }
 
-    public function destroy($blog){
+    public static function destroy($blog){
         $blog->delete();
     }
 }
