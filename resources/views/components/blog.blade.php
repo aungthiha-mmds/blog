@@ -1,15 +1,15 @@
 <div class="card" style="margin-bottom: 12px;">
     <div class="card-header">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-5">
                 {{ $blog->title }}
                 <br>
                 <span>Author by : {{ $blog->user->name }}</span>
                 @if($blog->edit == 1)
-                    <span>Edited</span>
+                    <span><i>Edited</i></span>
                 @endif
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 Category
                 <br>
                 <span>{{ $blog->category->name }}</span>
@@ -25,6 +25,13 @@
                                 <button class="btn btn-danger btn-md del">Del</button>
                             </form>
                         </div>
+                    </div>
+                    <div class="col-md-3">
+                        @if($blog->status == 1)
+                        <p>Publish</p>
+                        @else
+                        <p>Unpublish</p>
+                        @endif
                     </div>
                 @endif
             @endif

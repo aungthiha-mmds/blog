@@ -1,6 +1,9 @@
 @extends('layouts.app')
-
 @section('content')
+{{-- site key
+6LdfAscZAAAAANX7OiIxVxqii05CRrgVbudrqAFn
+secret key
+6LdfAscZAAAAANbtNiwvukQP0PWnBleOfktavdtI --}}
 
 <div class="container">
     @if($errors->any())
@@ -54,4 +57,5 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+@include('blog.googleValidation')
 @endsection

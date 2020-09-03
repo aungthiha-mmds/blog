@@ -38,7 +38,7 @@
             <label class="form-check-label" for="inlineCheckbox1">Publish</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="status" value="0" {{ ($blog->status == 2) ? 'checked' : '' }} >
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="status" value="0" {{ ($blog->status == 0) ? 'checked' : '' }} >
             <label class="form-check-label" for="inlineCheckbox2">Unpublish</label>
         </div>
         <br><br>
@@ -55,4 +55,5 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+@include('blog.googleValidation')
 @endsection
