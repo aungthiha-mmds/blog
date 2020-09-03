@@ -6,7 +6,7 @@ use App\Category;
 class CategoryRepository{
 
     public static function get(){
-        return Category::get()->all();
+        return Category::get();
     }
 
 }

@@ -6,7 +6,7 @@ use App\Tag;
 class TagRepository{
 
     public static function get(){
-        return Tag::get()->all();
+        return Tag::get();
     }
 
 }

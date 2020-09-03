@@ -7,7 +7,7 @@ class BlogRepository{
 
     public static function get(){
         if(\Auth::user()){
-            $blogs = Blog::get()->all();
+            $blogs = Blog::get();
         }else{
             $blogs = Blog::where('status', '1')->get();
         }
